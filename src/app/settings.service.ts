@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,3 +25,19 @@ export class SettingsService {
 let Match_Timer_Options = ['02:30', '05:00', '10:00', '25:00', '60:00']
 let Average_Options = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+/**  example usage
+class Example implements OnInit, OnDestroy {
+  settings={};
+  settingSub!: Subscription;
+
+  constructor(private data: SettingsService) { }
+  
+  ngOnInit(){
+    this.settingSub = this.data.current.subscribe(message => this.settings = message);
+  }
+
+  ngOnDestroy(){
+    this.settingSub.unsubscribe();
+  }
+}
+*/
