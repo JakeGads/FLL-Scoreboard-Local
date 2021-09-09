@@ -27,7 +27,10 @@ let Average_Options = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 /**  example usage
 class Example implements OnInit, OnDestroy {
-  settings={};
+  settings = {
+    'Match_Timer': '02:30',
+    'Average_Top': 3
+  };
   settingSub!: Subscription;
 
   constructor(private data: SettingsService) { }
