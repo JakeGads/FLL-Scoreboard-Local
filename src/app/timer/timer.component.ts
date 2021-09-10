@@ -47,8 +47,10 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
     console.log(data.curr_time)
     if(data.curr_time == '00:00'){
-      data.end();
-      this.end();
+      setTimeout(() => {
+        data.end();
+      }, 1000);
+      // this.end();
     }
   }
 
@@ -65,7 +67,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   end(){
     clearInterval(this.loop_object)
     this.isActive = false;
-    this.curr_time = `${this.settings.Match_Timer}`;
+    this.curr_time = this.settings.Match_Timer;
   }
 
   constructor(private data: SettingsService) { this.curr_time = "" }
