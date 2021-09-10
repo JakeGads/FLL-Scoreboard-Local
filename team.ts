@@ -44,12 +44,13 @@ export class Team{
 export class Teams{
     public teams: Team[];
 
-    constructor(teams: Team[]){
+    constructor(teams?: Team[]){
         if(teams){
             this.teams = teams;
             this.sortTeams();
         }
         else{
+            // TODO pull data from the API when configured
             this.teams = [];
         }
     }
@@ -77,5 +78,14 @@ export class Teams{
                 }
             }
         )
+    }
+
+    public search(teamNum: number): string{
+        for(let i = 0; i < this.teams.length; i++){
+            if(teamNum == this.teams[i].num){
+                return this.teams[i].name;
+            }
+        }
+        return '';
     }
 }
