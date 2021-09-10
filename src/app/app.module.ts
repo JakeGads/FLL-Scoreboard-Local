@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimerComponent } from './timer/timer.component';
 import { SettingsComponent } from './settings/settings.component';
+import { DataEntryComponent } from './data-entry/data-entry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimerComponent,
-    SettingsComponent
+    SettingsComponent,
+    DataEntryComponent
   ],
   imports: [
     BrowserModule,
