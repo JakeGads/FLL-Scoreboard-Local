@@ -1,1 +1,7 @@
-<p>timer works!</p>
+<button *ngIf="!isActive" (click)="start()">
+    {{curr_time}}
+</button> 
+
+<button *ngIf="isActive" (click)="end()">
+    {{curr_time}}
+</button> 

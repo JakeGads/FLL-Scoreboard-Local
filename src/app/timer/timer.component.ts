@@ -1,3 +1,4 @@
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
@@ -10,46 +11,61 @@ import { SettingsService } from '../settings.service';
 })
 export class TimerComponent implements OnInit, OnDestroy {
   // filled her only for vscode helper functions
-  private settings = {
+  settings = {
     'Match_Timer': '02:30',
     'Average_Top': 3
   };
   private settingSub!: Subscription;
 
-  private secondCounter = interval(1 * 1000);
-  private target_time: number | undefined;
+  isActive: boolean = false;
+  private targetTime: number = 0;
+  
 
   curr_time: string;
+  private loop_object: any;
 
-  private loop(target_time: number){
-    if(Date.now() < target_time){
-      let diff = target_time - Date.now()
+
+  private loop(data:TimerComponent){
+    if(Date.now() < data.targetTime){
+      let diff = data.targetTime - Date.now()
       let min = Math.floor(diff/1000/60);
       let second = Math.floor(diff / 1000) % 60;
       
       if(min.toString().length < 2){
-        this.curr_time = `0${min}`; 
+        data.curr_time = `0${min}`; 
       }
       else {
-        this.curr_time = min.toString() 
+        data.curr_time = min.toString() 
       }
 
       if(second.toString().length < 2){
-        this.curr_time += `:0${second}`
+        data.curr_time += `:0${second}`
       }
       else {
-        this.curr_time += `:${second}`
+          data.curr_time += `:${second}`
       } 
     }
-    
+    console.log(data.curr_time)
+    if(data.curr_time == '00:00'){
+      data.end();
+      this.end();
+    }
   }
 
   start(){
-    this.target_time = Date.now()
-    this.target_time += parseInt(this.settings.Match_Timer.split(':')[0]) * 60 * 1000; // add minutes
-    this.target_time += parseInt(this.settings.Match_Timer.split(':')[1]) * 1000; // add seconds
+    console.log('starting')
+    this.isActive = true;
+    this.targetTime = parseInt(this.settings.Match_Timer.split(':')[0]) * 60 * 1000; // add minutes
+    this.targetTime += parseInt(this.settings.Match_Timer.split(':')[1]) * 1000; // add seconds
+    this.targetTime += Date.now()
     
-    this.secondCounter.subscribe(this.loop)
+    this.loop_object = setInterval(this.loop, 1 * 1000, this)
+  }
+
+  end(){
+    clearInterval(this.loop_object)
+    this.isActive = false;
+    this.curr_time = `${this.settings.Match_Timer}`;
   }
 
   constructor(private data: SettingsService) { this.curr_time = "" }
