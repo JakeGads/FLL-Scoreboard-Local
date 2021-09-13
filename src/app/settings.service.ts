@@ -23,7 +23,7 @@ export class SettingsService {
 }
 
 let Match_Timer_Options = ['02:30', '05:00', '10:00', '25:00', '60:00']
-let Average_Options = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let Average_Options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 /**  example usage
 class Example implements OnInit, OnDestroy {

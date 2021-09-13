@@ -5,7 +5,11 @@
         <th>ID</th>
         <th>Name</th>
         <th>Scores</th>
-        <th>Average</th>
+        <th *ngIf="settings.Average_Top == 1">Top Score</th>
+        <th *ngIf="settings.Average_Top > 1">Average of Top {{settings.Average_Top}} Scores</th>
+        <th *ngIf="settings.Average_Top == 0">Average Score</th>
+
+        
       </tr>
     </thead>
     <tbody>

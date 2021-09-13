@@ -8,6 +8,7 @@ import { TimerComponent } from './timer/timer.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DataEntryComponent } from './data-entry/data-entry.component';
 import { BoardComponent } from './board/board.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BoardComponent } from './board/board.component';
     TimerComponent,
     SettingsComponent,
     DataEntryComponent,
-    BoardComponent
+    BoardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
