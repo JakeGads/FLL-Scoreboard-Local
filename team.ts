@@ -51,7 +51,10 @@ export class Teams{
         }
         else{
             // TODO pull data from the API when configured
-            this.teams = [];
+            this.teams = [
+                new Team('Cyber Crusaders', 272),
+                new Team('Vulcan', 1260)
+            ];
         }
     }
     

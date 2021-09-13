@@ -16,6 +16,7 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   teamName = ''
   dataEntry = new FormGroup({
     teamNumber: new FormControl(''),
+    teamName: new FormControl(''),
     score: new FormControl('')
   });
 
@@ -36,17 +37,30 @@ export class DataEntryComponent implements OnInit, OnDestroy {
     this.settingSub.unsubscribe();
   }
 
-  onSubmit(teamNum:number, score: number){
-    if(this.teams.search(teamNum)){
-      this.teams.addScore(teamNum, score, this.settings.Average_Top);
+  onSubmit(){
+    if(this.search()){
+      this.errorMsg = '';
+      this.teams.addScore(
+        this.dataEntry.value['teamNumber'], 
+        this.dataEntry.value['score'], 
+        this.settings.Average_Top
+      );
+      this.teamName = ''
+      this.dataEntry.reset();
+     
     }
     else{
-      this.errorMsg = `Team Number ${teamNum} not found in existing list`
+      this.errorMsg = `Team Number ${this.dataEntry.value['teamNumber']} not found in existing list. Please Double Check`
     }
   }
 
-  onChange(teamNum: number){
-    this.teamName = this.teams.search(teamNum);
+  search(){
+    this.teamName = this.teams.search(this.dataEntry.value['teamNumber'])
+    this.dataEntry.value['teamName'] = this.teamName;
+    if(this.dataEntry.value['teamName']){
+      return true;   
+    }
+    return false;
   }
 }
 
