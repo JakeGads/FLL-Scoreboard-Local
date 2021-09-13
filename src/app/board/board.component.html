@@ -1,1 +1,20 @@
-<p>board works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Scores</th>
+        <th>Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of teams.teams; let h = index;">
+        <td>{{h + 1}}</td>
+        <td>{{i.num}}</td>
+        <td>{{i.name.substring(0,25)}}</td>
+        <td>{{i.scores.toString().replace('[', '').replace(']','')}}</td>
+        <td>{{i.avg}}</td>
+      </tr>
+    </tbody>
+</table>

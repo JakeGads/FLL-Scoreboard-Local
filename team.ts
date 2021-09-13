@@ -42,6 +42,7 @@ export class Team{
 }
 
 export class Teams{
+    // TODO make this a service maybe, probably most likely
     public teams: Team[];
 
     constructor(teams?: Team[]){
