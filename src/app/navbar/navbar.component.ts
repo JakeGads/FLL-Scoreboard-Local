@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { routes } from '../app.module'
+import { routeData } from '../app.module'
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +7,7 @@ import { routes } from '../app.module'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  routeInfo = routeData;
   constructor() { }
 
   ngOnInit(): void {

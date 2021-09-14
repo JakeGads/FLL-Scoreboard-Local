@@ -14,11 +14,22 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 
-export const routes: Routes = [
+class temp{
+  constructor(public path: string, public text: string) {}
+}
+
+export const routeData:temp[] = [
+  new temp('/board', 'Score Board'),
+  new temp('/admin', 'Admin Page'),
+  new temp('/settings', 'Settings')
+]
+
+let routes: Routes = [
   { path: 'board', component: BoardPageComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'settings', component: SettingPageComponent},
 ];
+
 
 @NgModule({
   declarations: [
