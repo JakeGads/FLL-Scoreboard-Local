@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SettingsService } from '../settings.service';
-import {Team, Teams} from '../../../team'
+import {Team} from '../../../team'
+import { TeamService } from '../team.service';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   private settingSub!: Subscription;
   private settings!: { Match_Timer: string; Average_Top: number; };
   
-  teams: Teams;
 
-  constructor(private data: SettingsService) { 
-    this.teams = new Teams();
+
+  constructor(private data: SettingsService, private teamService: TeamService) { 
+  
   }
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   onSubmit(){
     if(this.search()){
       this.errorMsg = '';
-      this.teams.addScore(
+      this.teamService.addScore(
         this.dataEntry.value['teamNumber'], 
         this.dataEntry.value['score'], 
         this.settings.Average_Top
@@ -55,7 +56,7 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   }
 
   search(){
-    this.teamName = this.teams.search(this.dataEntry.value['teamNumber'])
+    this.teamName = this.teamService.search(this.dataEntry.value['teamNumber'])
     this.dataEntry.value['teamName'] = this.teamName;
     if(this.dataEntry.value['teamName']){
       return true;   
