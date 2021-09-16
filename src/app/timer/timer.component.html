@@ -1,7 +1,9 @@
-<button *ngIf="!isActive" (click)="start()">
-    {{curr_time}}
-</button> 
+<div>
+    <button *ngIf="!isActive" (click)="start()">
+        {{curr_time}}
+    </button> 
 
-<button *ngIf="isActive" (click)="end()">
-    {{curr_time}}
+    <button *ngIf="isActive" (click)="end()">
+        {{curr_time}}
 </button> 
+</div>

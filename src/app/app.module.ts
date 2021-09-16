@@ -21,8 +21,8 @@ class temp{
 
 export const routeData:temp[] = [
   new temp('/home', 'Home'),
-  new temp('/board', 'Score Board'),
-  new temp('/admin', 'Admin Page'),
+  new temp('/board', 'Board'),
+  new temp('/admin', 'Admin'),
   new temp('/settings', 'Settings')
 ]
 

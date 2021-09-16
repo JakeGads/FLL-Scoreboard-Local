@@ -1,3 +1,8 @@
 <nav>
-    <a *ngFor="let link of routeInfo" href="{{link.path}}">{{link.text}}</a>
+    <ul class="menu-bar">
+        <li *ngFor="let link of routeInfo">
+            <a href="{{link.path}}">{{link.text}}</a>
+        </li>
+        <div class="dot"></div>
+    </ul>
 </nav>

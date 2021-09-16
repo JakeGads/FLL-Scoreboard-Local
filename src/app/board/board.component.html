@@ -1,24 +1,26 @@
-<table>
-    <thead>
-      <tr>
-        <th>Place</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Scores</th>
-        <th *ngIf="settings.Average_Top == 1">Top Score</th>
-        <th *ngIf="settings.Average_Top > 1">Average of Top {{settings.Average_Top}} Scores</th>
-        <th *ngIf="settings.Average_Top == 0">Average Score</th>
+<div class=table-wrapper>
+  <table class="fl-table">
+      <thead>
+        <tr>
+          <th>Place</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Scores</th>
+          <th *ngIf="settings.Average_Top == 1">Top Score</th>
+          <th *ngIf="settings.Average_Top > 1">Average of Top {{settings.Average_Top}} Scores</th>
+          <th *ngIf="settings.Average_Top == 0">Average Score</th>
 
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let i of teams; let h = index;">
-        <td>{{h + 1}}</td>
-        <td>{{i.num}}</td>
-        <td>{{i.name.substring(0,25)}}</td>
-        <td>{{i.scores.toString().replace('[', '').replace(']','')}}</td>
-        <td>{{i.avg}}</td>
-      </tr>
-    </tbody>
-</table>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of teams; let h = index;">
+          <td>{{h + 1}}</td>
+          <td>{{i.num}}</td>
+          <td>{{i.name.substring(0,25)}}</td>
+          <td>{{i.scores.toString().replace('[', '').replace(']','')}}</td>
+          <td>{{i.avg}}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>
