@@ -1,10 +1,13 @@
 <p>{{errorMsg}}</p>
 <form [formGroup]="dataEntry" (ngSubmit)="onSubmit()">
-    <label for="teamNumber">Number: </label>
+    <label for="teamNumber">Number</label><br>
     <input id="teamNumber" type="number" formControlName="teamNumber" (ngModelChange)="search()">
-    <label>{{teamName}}</label>
     <br>
-    <label for="score">Score: </label>
+    <label class="teamName">  {{teamName}}</label>
+   
+
+    <br>
+    <label for="score">Scores</label><br>
     <input id="score" type="number" formControlName="score">
     <br>
     <input type="submit">

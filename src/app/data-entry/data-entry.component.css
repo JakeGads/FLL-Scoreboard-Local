@@ -1,0 +1,16 @@
+form {
+    margin-left: 4%;
+    text-align: center;
+    margin-right: 1%;
+    margin-top: 2%;
+}
+
+label{
+    size: 25%;
+    text-align: right;
+    margin-right: 25%;
+}
+
+.teamName{
+    margin-left: 25%;
+}
