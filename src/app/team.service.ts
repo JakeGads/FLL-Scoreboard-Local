@@ -45,6 +45,7 @@ export class TeamService{
               }
           }
       )
+      this.sortTeams();
   }
 
   public search(teamNum: number): string{
