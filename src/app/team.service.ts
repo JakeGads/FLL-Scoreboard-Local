@@ -56,4 +56,8 @@ export class TeamService{
       }
       return '';
   }
+
+  public getTeamsFromJSON(json: string){
+      
+  }
 }
