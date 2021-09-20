@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   changeMatch_Timer(){
     this.data.changeTime();
-    console.log(this.settings)
   }
 
   changeAverage_Top(){
