@@ -1,2 +1,9 @@
-<button (click)="changeMatch_Timer()">Time {{settings.Match_Timer}}</button>
+<button (click)="changeMatch_Timer()">Time {{settings.Match_Timer}}</button><br><br>
 <button (click)="changeAverage_Top()">Top Scores used for average: {{settings.Average_Top}}</button>
+<br>
+<span *ngIf="settings.Average_Top == 0">Will take the average of all scores</span>
+<span *ngIf="settings.Average_Top == 1">Will take the top score</span>
+<br>
+<button>Clear Teams</button>
+<br><br>
+<button>Add teams</button>

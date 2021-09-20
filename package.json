@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "concurrently \"ng serve\" \"server/node_modules/.bin/ts-node-dev server/server.ts\""
+    "server": "concurrently \"ng serve\" \"ts-node-dev server/server.ts\""
   },
   "private": true,
   "dependencies": {
