@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Team } from '../../team';
+import { SettingsService } from './settings.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +13,7 @@ export class TeamService{
   source: BehaviorSubject<Team[]>; ;
   current:Observable<Team[]>;
 
-  constructor(){
-    // TODO pull data from the API when configure
+  constructor(private settingService: SettingsService, private http: HttpClient){    // TODO pull data from the API when configure
     this.teams = [
         new Team('Cyber Crusaders', 272),
         new Team('Vulcan', 1260)
@@ -57,7 +58,15 @@ export class TeamService{
       return '';
   }
 
-  public getTeamsFromJSON(json: string){
-      
+  public getTeamsFromJSON(): void{
+    this.current = this.http.get<Team[]>(':4201/getTeams')
+    this.teams.forEach((element: Team) => {
+        element.genAverage(this.settingService.settings.Average_Top);
+    })
+    this.sortTeams();
+  }
+
+  public sendTeamsFromJSON(): void{
+    this.http.put(`:4201/saveTeams`, {'teams': JSON.stringify(this.teams)})
   }
 }

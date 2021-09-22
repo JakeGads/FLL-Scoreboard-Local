@@ -19,7 +19,7 @@ export class Team{
         this.genAverage(top);
     }
 
-    private genAverage(top: number): void{
+    genAverage(top: number): void{
         switch(top){
             case 0: this.avg = this.orderedScores.reduce((a,b) => a+b) / this.orderedScores.length; break;
             case -1: this.avg = this.orderedScores[0]; break;
