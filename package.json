@@ -2,12 +2,12 @@
   "name": "ts-angular-template",
   "version": "0.0.0",
   "scripts": {
+    "server": "concurrently \"ng serve\" \"ts-node-dev server/server.ts\"",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "server": "concurrently \"ng serve\" \"ts-node-dev server/server.ts\""
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
