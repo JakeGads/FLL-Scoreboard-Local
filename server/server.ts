@@ -26,6 +26,7 @@ app.use(
 app.use(express.json());
 
 app.get('/getTeams', (req: any, res: any) => {
+    // EXPECTED INPUT: NONE
     fs.readFile(teamFile, 'utf8', (err:any, data:any) => {
         if (err) {
             console.error(err);
@@ -40,6 +41,7 @@ app.get('/getTeams', (req: any, res: any) => {
 });
 
 app.put('/saveTeams', (req: any, res: any) => {
+    // EXPECT INPUT, JSON ARRAY OF TEAM
     fs.writeFile(teamFile, req.query['teams'], (err: any) => {
         if(err){
             console.log(err);
@@ -51,7 +53,7 @@ app.put('/saveTeams', (req: any, res: any) => {
 });
 
 const upload = multer({ dest: 'tmp/csv/' });
-app.use('/add-teams', upload.single('file'), function (req:any, res:any) {
+app.use('/add-teams', upload.single('file'), (req:any, res:any) => {
     const fileRows: string[] = [];
     // open uploaded file
     csv.fromPath(req.file.path)
@@ -65,24 +67,27 @@ app.use('/add-teams', upload.single('file'), function (req:any, res:any) {
       })
 });
 
-app.get('/add-team'), (req: any, res: any) => {
+app.get('/addTeam', (req: any, res: any) => {
+    console.log('adding a team')
     fs.readFile(teamFile, 'utf8', (err:any, data:any) => {
         if (err) {
-            console.error(err);
+            console.error(`ERROR: ${err}`);
             res.send(err);
             return;
           }
         else{
-            fs.appendFile(teamFile, data.replace('}]', `}${req.query['team']}`, (err: any) => {
+            let temp = JSON.parse(data);
+            temp.push(JSON.parse(req.query['team']))
+            fs.writeFile(teamFile, JSON.stringify(temp), (err: any) => {
                 if (err) {
                   console.log(err);
                 }
-            }));
-            res.send(data);
+            });
+            res.send(temp);
             return;
         }
-    })
-};
+    }); 
+});
 
 
 app.listen(4201, '127.0.0.1', function() {
