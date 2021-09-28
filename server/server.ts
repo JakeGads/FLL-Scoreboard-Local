@@ -89,6 +89,16 @@ app.get('/addTeam', (req: any, res: any) => {
     }); 
 });
 
+app.put('/clearTeams', (req:any, res: any) => {
+    console.log('removing the data');
+    fs.writeFile(teamFile, '', (err:any) => {
+        if(err){
+            console.log("I literally don't know how you did this")
+        }
+    });
+    res.sendStatus(200);
+})
+
 
 app.listen(4201, '127.0.0.1', function() {
     console.log('API serving on 4201')
