@@ -9,21 +9,22 @@ import { SettingsService } from './settings.service';
 export class TeamService{
   // TODO make this a service maybe, probably most likely
   
-  teams: Team[];
-  source: BehaviorSubject<Team[]>; ;
-  current:Observable<Team[]>;
+  teams: Team[] = [];
+  source: BehaviorSubject<Team[]> = new BehaviorSubject(this.teams);
+  current:Observable<Team[]> = this.source.asObservable();;
 
   constructor(private settingService: SettingsService, private http: HttpClient){    // TODO pull data from the API when configure
-    this.teams = [
-        new Team('Cyber Crusaders', 272),
-        new Team('Vulcan', 1260)
-    ];
-    this.source = new BehaviorSubject(this.teams);
-    this.current = this.source.asObservable();
-
+    this.current = this.http.get<Team[]>('http://localhost:4201/getTeams')
+    this.current.subscribe(message => this.teams = message)
+    for(let i = 0; i < this.teams.length; i++){
+        this.teams[i] = new Team(this.teams[i].name, this.teams[i].num, this.teams[i].scores);
+        console.log(this.teams[i])
+    }
+    console.log(`TEAMS: ${this.teams}`)
   }
   
   private sortTeams() {
+      
       this.teams = this.teams.sort(
           function(a: Team, b: Team){
               if(a.avg == b.avg){
@@ -38,15 +39,18 @@ export class TeamService{
   }
 
   public addScore(teamNumber: number, score: number, top: number = 0){
-      this.teams.forEach(
-          function(a:Team){
-              if(a.num == teamNumber){
-                  a.addScore(score, top);
-                  return;
-              }
-          }
-      )
-      this.sortTeams();
+    console.log(Team)
+    console.log(this.teams)
+    this.teams.forEach(
+        function(a:Team){
+            if(a.num == teamNumber){
+                a.addScore(score, top);
+                return;
+            }
+        }
+    )
+    this.sortTeams();
+    this.sendTeamsFromJSON();
   }
 
   public search(teamNum: number): string{
@@ -59,14 +63,19 @@ export class TeamService{
   }
 
   public getTeamsFromJSON(): void{
-    this.current = this.http.get<Team[]>(':4201/getTeams')
     this.teams.forEach((element: Team) => {
+        console.log(`NUM: ${element.name}\n`)
         element.genAverage(this.settingService.settings.Average_Top);
     })
     this.sortTeams();
   }
 
   public sendTeamsFromJSON(): void{
-    this.http.put(`:4201/saveTeams`, {'teams': JSON.stringify(this.teams)})
+    //TODO force this to write out then send
+    let x: JSON[] = [];
+    this.teams.forEach((element: Team) => {
+        x.push(JSON.parse(`{"name":${element.name},"num":${element.num},"scores":${element.scores},"orderedScores":${element.orderedScores},"avg":${element.avg}}`))
+    });
+    this.http.put(`http://localhost:4201/saveTeams`, {'teams': JSON.stringify(x)})
   }
 }
