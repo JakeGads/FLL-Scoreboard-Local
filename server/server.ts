@@ -53,7 +53,7 @@ app.put('/saveTeams', (req: any, res: any) => {
 });
 
 const upload = multer({ dest: 'tmp/csv/' });
-app.use('/add-teams', upload.single('file'), (req:any, res:any) => {
+app.use('/addTeams', upload.single('file'), (req:any, res:any) => {
     const fileRows: string[] = [];
     // open uploaded file
     csv.fromPath(req.file.path)
@@ -88,7 +88,6 @@ app.get('/addTeam', (req: any, res: any) => {
         }
     }); 
 });
-
 
 app.listen(4201, '127.0.0.1', function() {
     console.log('API serving on 4201')

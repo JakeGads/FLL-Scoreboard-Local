@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SettingsService } from '../settings.service';
@@ -24,14 +24,16 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   private settingSub!: Subscription;
   private settings!: { Match_Timer: string; Average_Top: number; };
   
-
+  private teamSub!: Subscription;
+  private teams!: Team[];
 
   constructor(private data: SettingsService, private teamService: TeamService) { 
-  
   }
 
   ngOnInit(): void {
     this.settingSub = this.data.current.subscribe(message => this.settings = message);
+    this.teamSub = this.teamService.current.subscribe(message => this.teams = message)
+    this.teamService.getTeamsFromJSON();
   }
 
   ngOnDestroy(): void {
@@ -39,6 +41,7 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
+    
     if(this.search()){
       this.errorMsg = '';
       this.teamService.addScore(
