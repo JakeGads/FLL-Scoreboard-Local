@@ -16,15 +16,15 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 
-class temp{
+class Temp{
   constructor(public path: string, public text: string) {}
 }
 
-export const routeData:temp[] = [
-  new temp('/', 'Home'),
-  new temp('/board', 'Board'),
-  new temp('/admin', 'Admin'),
-  new temp('/settings', 'Settings')
+export const routeData:Temp[] = [
+  new Temp('/', 'Home'),
+  new Temp('/board', 'Board'),
+  new Temp('/admin', 'Admin'),
+  new Temp('/settings', 'Settings')
 ]
 
 let routes: Routes = [
