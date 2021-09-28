@@ -21,14 +21,14 @@ class temp{
 }
 
 export const routeData:temp[] = [
-  new temp('/home', 'Home'),
+  new temp('/', 'Home'),
   new temp('/board', 'Board'),
   new temp('/admin', 'Admin'),
   new temp('/settings', 'Settings')
 ]
 
 let routes: Routes = [
-  { path: 'home', component: HomePageComponent },
+  { path: '', component: HomePageComponent },
   { path: 'board', component: BoardPageComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'settings', component: SettingPageComponent},
