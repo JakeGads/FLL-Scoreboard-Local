@@ -45,7 +45,7 @@ export class TimerComponent implements OnInit, OnDestroy {
           data.curr_time += `:${second}`
       } 
     }
-    console.log(data.curr_time)
+    
     if(data.curr_time == '00:00'){
       setTimeout(() => {
         data.end();
@@ -55,7 +55,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   }
 
   start(){
-    console.log('starting')
+    
     this.isActive = true;
     this.targetTime = parseInt(this.settings.Match_Timer.split(':')[0]) * 60 * 1000; // add minutes
     this.targetTime += parseInt(this.settings.Match_Timer.split(':')[1]) * 1000; // add seconds

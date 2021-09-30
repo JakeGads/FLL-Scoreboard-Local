@@ -14,39 +14,38 @@ export class TeamService{
   current:Observable<Team[]> = this.source.asObservable();;
 
   constructor(private settingService: SettingsService, private http: HttpClient){    // TODO pull data from the API when configure
-    this.getTeams()
-  }
-
-  private async getTeams(){
-      const response = await fetch('http://localhost:4201/getTeams');
-      let data = await response.json();
-      console.log(data)
-      data.forEach((element: any) => {
-          console.log(element['name'],
-          element['num'],
-          element['scores']);
-          this.teams.push(
-              new Team(
-                  element['name'],
-                  element['num'],
-                  element['scores']
-              )
-          );
-      });
-
-      console.log(this.teams)
+    this.http.get('http://localhost:4201/getTeams').subscribe(data => {
+        let x : any = data;
+        x.forEach((element:any) => {
+            if(!element['scores'])
+                this.teams.push(
+                    new Team(
+                        element['name'],
+                        element['num']
+                    )
+                )
+            else
+                this.teams.push(
+                    new Team(
+                        element['name'],
+                        element['num'],
+                        element['scores']
+                    )
+                )           
+        });
+    });
   }
   
   private sortTeams() {
-      
       this.teams = this.teams.sort(
           function(a: Team, b: Team){
+              console.log(`checking ${a.num} & ${b.num}`)
               if(a.avg == b.avg){
                   if(a.orderedScores[0] == b.orderedScores[0]){
                       return b.num - a.num
                   }
                   return b.orderedScores[0] - a.orderedScores[0]
-              }   
+              } 
               return b.avg - a.avg;  
           }
       )
@@ -62,7 +61,6 @@ export class TeamService{
             }
         }
     );
-    console.log('here')
     this.sortTeams();
     this.sendTeamsFromJSON();
   }
@@ -78,7 +76,6 @@ export class TeamService{
 
   public getTeamsFromJSON(): void{
     this.teams.forEach((element: Team) => {
-        console.log(`NUM: ${element.name}\n`)
         element.genAverage(this.settingService.settings.Average_Top);
     })
     this.sortTeams();
@@ -90,10 +87,10 @@ export class TeamService{
     this.teams.forEach((element: Team) => {
         x.push(`{'name':'${element.name}','num':${element.num},'scores':[${element.scores}]}`)
     });
-    console.log(x)
+    
     this.http.put('http://localhost:4201/saveTeams', {body: JSON.stringify(x)}).subscribe({
         next: data => {
-            console.log('success')
+            
         },
         error: error => {
             console.error('There was an error!', error);

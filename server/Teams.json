@@ -1,1 +1,5 @@
-[{ "name": "Test Team", "num": 1, "scores": [5, 12] }]
+[
+  { "name": "Jake", "num": 5, "scores": [555] },
+  { "name": "Test Team", "num": 1, "scores": [5, 12, 2] },
+  { "name": "Manny", "num": 6, "scores": [] }
+]

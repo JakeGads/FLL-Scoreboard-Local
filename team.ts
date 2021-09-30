@@ -15,8 +15,13 @@ export class Team{
     }
     
     private genOrderScores(top: number = 0): void{
-        this.orderedScores = [...this.scores].sort((a,b) => b-a);
-        this.genAverage(top);
+        if(this.scores.length > 0){
+            this.orderedScores = [...this.scores].sort((a,b) => b-a);
+            this.genAverage(top);
+        } else {
+            this.orderedScores = [];
+            this.avg = 0
+        }
     }
 
     genAverage(top: number): void{
@@ -30,7 +35,8 @@ export class Team{
                 else{
                     this.avg = this.orderedScores.reduce((a,b) => a+b) / this.orderedScores.length;
                 }  
-        }        
+        }
+                
     }
 
     public addScore(score: number, top: number = 0){
