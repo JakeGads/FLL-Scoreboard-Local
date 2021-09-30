@@ -41,15 +41,16 @@ app.get('/getTeams', (req: any, res: any) => {
 });
 
 app.put('/saveTeams', (req: any, res: any) => {
-    // EXPECT INPUT, JSON ARRAY OF TEAM
-    fs.writeFile(teamFile, req.query['teams'], (err: any) => {
+    let write = req.body['body'].replaceAll("\"", '').replaceAll("\'", "\"")
+    fs.writeFile(teamFile, write, (err: any) => {
         if(err){
             console.log(err);
             res.sendStatus(400);
             return;
         }
-    })
-    res.sendStatus(200)
+    });
+    console.log('success')
+    res.sendStatus(200);
 });
 
 const upload = multer({ dest: 'tmp/csv/' });

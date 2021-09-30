@@ -36,6 +36,7 @@ export class Team{
     public addScore(score: number, top: number = 0){
         this.scores.push(score)
         this.genOrderScores(top);
+        
     }
 
 

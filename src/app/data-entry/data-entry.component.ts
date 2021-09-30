@@ -33,7 +33,6 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.settingSub = this.data.current.subscribe(message => this.settings = message);
     this.teamSub = this.teamService.current.subscribe(message => this.teams = message)
-    this.teamService.getTeamsFromJSON();
   }
 
   ngOnDestroy(): void {
@@ -61,6 +60,7 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   search(){
     this.teamName = this.teamService.search(this.dataEntry.value['teamNumber'])
     this.dataEntry.value['teamName'] = this.teamName;
+    
     if(this.dataEntry.value['teamName']){
       return true;   
     }
