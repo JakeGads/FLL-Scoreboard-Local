@@ -41,7 +41,7 @@ app.get('/getTeams', (req: any, res: any) => {
 });
 
 app.put('/saveTeams', (req: any, res: any) => {
-    let write = req.body['body'].replaceAll("\"", '').replaceAll("\'", "\"")
+    let write = req.body['body'].replaceAll("\"", '').replaceAll("\'", "\"").replaceAll("},", "},\n\t").replaceAll("}]", "}\n]").replaceAll("[{", "[\n\t{");
     fs.writeFile(teamFile, write, (err: any) => {
         if(err){
             console.log(err);
