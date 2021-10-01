@@ -15,6 +15,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AddTeamComponent } from './add-team/add-team.component';
 
 class Temp{
   constructor(public path: string, public text: string) {}
@@ -46,7 +47,8 @@ let routes: Routes = [
     BoardPageComponent,
     AdminPageComponent,
     SettingPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    AddTeamComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
