@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Team } from '../../team';
 import { SettingsService } from './settings.service';
+import { api_direction } from './url';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,7 @@ export class TeamService{
   current:Observable<Team[]> = this.source.asObservable();;
 
   constructor(private settingService: SettingsService, private http: HttpClient){    // TODO pull data from the API when configure
-    this.http.get('http://localhost:4201/getTeams').subscribe(data => {
+    this.http.get(api_direction + 'getTeams').subscribe(data => {
         let x : any = data;
         x.forEach((element:any) => {
             if(!element['scores'])
@@ -88,20 +90,13 @@ export class TeamService{
         x.push(`{'name':'${element.name}','num':${element.num},'scores':[${element.scores}]}`)
     });
     
-    this.http.put('http://localhost:4201/saveTeams', {body: JSON.stringify(x)}).subscribe({
+    this.http.put(api_direction +'saveTeams', {body: JSON.stringify(x)}).subscribe({
         next: data => {
-            
+            console.log(data);
         },
         error: error => {
             console.error('There was an error!', error);
         }
     });
-    // fetch('http://localhost:4201/saveTeams',{
-    //     method: 'PUT',
-    //     headers:{
-    //     'Content-Type':'application/json'
-    //     },
-    //     body: JSON.stringify(x)
-    // })
   }
 }

@@ -40,20 +40,21 @@ export class DataEntryComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    
-    if(this.search()){
-      this.errorMsg = '';
-      this.teamService.addScore(
-        this.dataEntry.value['teamNumber'], 
-        this.dataEntry.value['score'], 
-        this.settings.Average_Top
-      );
-      this.teamName = ''
-      this.dataEntry.reset();
-     
-    }
-    else{
-      this.errorMsg = `Team Number ${this.dataEntry.value['teamNumber']} not found in existing list. Please Double Check`
+    if(this.dataEntry.value['score']){
+      if(this.search()){
+        this.errorMsg = '';
+        this.teamService.addScore(
+          this.dataEntry.value['teamNumber'], 
+          this.dataEntry.value['score'], 
+          this.settings.Average_Top
+        );
+        this.teamName = ''
+        this.dataEntry.reset();
+      
+      }
+      else{
+        this.errorMsg = `Team Number ${this.dataEntry.value['teamNumber']} not found in existing list. Please Double Check`
+      }
     }
   }
 

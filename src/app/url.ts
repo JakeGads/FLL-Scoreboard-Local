@@ -1,0 +1,1 @@
+export let api_direction = "http://localhost:4201/"
