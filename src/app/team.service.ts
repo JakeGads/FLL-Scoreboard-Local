@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Team } from '../../team';
 import { SettingsService } from './settings.service';
-import { api_direction } from './url';
+import { api_direction } from './urls';
 
 @Injectable({
   providedIn: 'root'
