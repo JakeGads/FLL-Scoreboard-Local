@@ -16,6 +16,10 @@ export class TeamService{
   current:Observable<Team[]> = this.source.asObservable();;
 
   constructor(private settingService: SettingsService, private http: HttpClient){    // TODO pull data from the API when configure
+    this.getTeams()
+  }
+
+  getTeams(){
     this.http.get(api_direction + 'getTeams').subscribe(data => {
         let x : any = data;
         x.forEach((element:any) => {
@@ -38,6 +42,11 @@ export class TeamService{
     });
   }
   
+  public addTeam(team: Team){
+    this.teams.push(team)
+    this.putTeams()
+  }
+
   private sortTeams() {
       this.teams = this.teams.sort(
           function(a: Team, b: Team){
@@ -64,7 +73,7 @@ export class TeamService{
         }
     );
     this.sortTeams();
-    this.sendTeamsFromJSON();
+    this.putTeams();
   }
 
   public search(teamNum: number): string{
@@ -83,7 +92,7 @@ export class TeamService{
     this.sortTeams();
   }
 
-  public async sendTeamsFromJSON(){
+  public async putTeams(){
     //TODO force this to write out then send
     let x: any = [];
     this.teams.forEach((element: Team) => {

@@ -1,1 +1,19 @@
-<p>add-team works!</p>
+<form [formGroup]="dataEntry" (ngSubmit)="onSubmit()">
+    <label for="teamNumber">Number</label><br>
+    <input id="teamNumber" type="number" formControlName="teamNumber" (ngModelChange)="search()">
+    <div *ngIf="!isValid">
+        <br>
+        <p>
+            number is already registered with a another team they cannot be re-added to the list
+        </p>
+    </div>
+    <br>
+    <label for="teamName">Name</label><br>
+    <input id="teamName" type="text" formControlName="teamName">
+    <br>
+    <label for="scores">Scores</label><br>
+    <input id="scores" type="text" formControlName="scores">
+    <span>to add multiple scores separate with a comma(,)</span>
+    <br>
+    <input type="submit">
+</form>

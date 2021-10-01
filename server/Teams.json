@@ -1,5 +1,7 @@
 [
-  { "name": "Test Team", "num": 1, "scores": [5, 12, 2, 100000000, 55] },
-  { "name": "Jake", "num": 5, "scores": [555, 6, 21, 12, 5] },
-  { "name": "Manny", "num": 6, "scores": [25, 90] }
+	{"name":"Test Team","num":1,"scores":[5,12,2,100000000,55]},
+	{"name":"Jake","num":5,"scores":[555,6,21,12,5]},
+	{"name":"Manny","num":6,"scores":[25,90]},
+	{"name":"Jugarnots","num":12,"scores":[]},
+	{"name":"Jaggerbot","num":11,"scores":[12,14,112]}
 ]
