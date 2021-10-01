@@ -90,6 +90,16 @@ app.get('/addTeam', (req: any, res: any) => {
     }); 
 });
 
+app.get('/clearTeams', (req: any, res: any) => {
+    fs.writeFile(teamFile, '', (err: any) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(400);
+            return;
+        }
+    });
+})
+
 app.listen(4201, '127.0.0.1', function() {
     console.log('API serving on 4201')
 });
