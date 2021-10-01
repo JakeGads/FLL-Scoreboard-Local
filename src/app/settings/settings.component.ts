@@ -44,4 +44,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this.clearStage = 0;
     }
   }
+
+  uploadFile(files: any){
+    console.log(files);
+  }
 }

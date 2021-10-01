@@ -16,6 +16,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AddTeamComponent } from './add-team/add-team.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 class Temp{
   constructor(public path: string, public text: string) {}
@@ -48,7 +49,8 @@ let routes: Routes = [
     AdminPageComponent,
     SettingPageComponent,
     HomePageComponent,
-    AddTeamComponent
+    AddTeamComponent,
+    FileUploadComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
