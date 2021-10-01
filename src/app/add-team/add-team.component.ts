@@ -52,6 +52,7 @@ export class AddTeamComponent implements OnInit {
           )
         )
       }
+      this.dataEntry.reset();
     }
   }
 
