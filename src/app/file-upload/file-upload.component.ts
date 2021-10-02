@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { TeamService } from '../team.service';
 import { FileUploadService } from './file-upload.service';
   
 @Component({
