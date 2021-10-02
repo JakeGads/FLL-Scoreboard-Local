@@ -1,4 +1,4 @@
-// use request to avoid a ts-node-dev error
+// use require to avoid a ts-node-dev error
 const express = require( "express" );
 const fs = require('fs');
 
@@ -54,38 +54,67 @@ app.put('/saveTeams', (req: any, res: any) => {
 });
 
 const upload = multer({ dest: 'tmp/csv/' });
-app.use('/addTeams', upload.single('file'), (req:any, res:any) => {
+app.use('/addTeams', upload.single('file'), async (req:any, res:any) => {
     
-    let json_read = fs.readFile(req.file.path, 'utf8', (err:any, data:any) => {
-        let json_read = '['
+    fs.readFile(req.file.path, 'utf8', (err:any, data:any) => {
+        let json_read : any = '['
         let rows = data.replaceAll('\r', '').split('\n') 
+        let count = 0;
         rows.forEach((row: string) => {
             let team = row.split(',')
-            if(isNaN(Number(team[0]))){
-                json_read += `{"name":"${team[1]}","num":${team[0]}}`
-            } else {
-                json_read += `{"name":"${team[1]}","num":${team[0]}}`
+            if(team.length > 1){
+                if(count > 0){
+                    json_read += ','    
+                }
+                json_read += '\n\t';
+                if(Number(team[0])){
+                    json_read += `{"name":"${team[1]}","num":${team[0]}}`
+                } else {
+                    json_read += `{"name":"${team[0]}","num":${team[1]}}`
+                }
+                count += 1;
             }
-       });
-       json_read += ']';
-       return json_read;
-    });
+        });
+        json_read += ']';
+        json_read = json_read.replaceAll('﻿', '');
+       
+        let newData : any = JSON.parse(json_read);
+        
+        fs.readFile(teamFile, 'utf8', (err: any, data:any) => {
+            let oldData : Object[];
+            let allData : any;
+            try{
+                oldData = JSON.parse(data)
+            } catch(error: any){
+                console.log('old file was empty')
+                oldData = [{"name":"EmptyTeam","num":0}]
+            }
 
-    let all: any;
+            allData = [...oldData, ...newData];
+            let cleanedData: Object[] = [];
 
-    fs.readFile(teamFile, 'utf8', (err: any, data: any) => {
-        all = JSON.parse(data);
+            allData.forEach((outer:any) => {
+                let distinct = true;
+                cleanedData.forEach((inner:any) => {
+                    if(inner.num == outer.num){
+                        distinct = false;
+                    }
+                });
+                if(distinct){
+                    cleanedData.push(outer);
+                }
+            });
+
+            fs.writeFile(teamFile, JSON.stringify(cleanedData), (err:any) => {
+                if(err){
+                    console.log(err);
+                }
+            });
+
+        });
     });
     
-    console.log(`json ${json_read}`);
-    console.log(`all ${all}`);
-
-    // fs.writeFile(teamFile, JSON.stringify(all), (err: any) => {
-    //     if(err){
-    //         console.error(err);
-    //     }
-    // });
-
+    res.sendStatus(200)
 });
 
 app.get('/addTeam', (req: any, res: any) => {

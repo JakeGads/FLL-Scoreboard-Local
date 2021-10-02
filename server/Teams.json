@@ -1,3 +1,12 @@
 [
-	{"name":"Test Team","num":1,"scores":[1]}
+  { "name": "EmptyTeam", "num": 0 },
+  { "name": "Jake", "num": 15 },
+  { "name": "Ryan", "num": 16 },
+  { "name": "Mick", "num": 17 },
+  { "name": "Aim", "num": 18 },
+  { "name": "Manny", "num": 19 },
+  { "name": "Alessio", "num": 20 },
+  { "name": "Nick", "num": 21 },
+  { "name": "Justine", "num": 22 },
+  { "name": "Unexpected", "num": 23 }
 ]
