@@ -15,20 +15,22 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
-class temp{
+class Temp{
   constructor(public path: string, public text: string) {}
 }
 
-export const routeData:temp[] = [
-  new temp('/home', 'Home'),
-  new temp('/board', 'Board'),
-  new temp('/admin', 'Admin'),
-  new temp('/settings', 'Settings')
+export const routeData:Temp[] = [
+  new Temp('/', 'Home'),
+  new Temp('/board', 'Board'),
+  new Temp('/admin', 'Admin'),
+  new Temp('/settings', 'Settings')
 ]
 
 let routes: Routes = [
-  { path: 'home', component: HomePageComponent },
+  { path: '', component: HomePageComponent },
   { path: 'board', component: BoardPageComponent },
   { path: 'admin', component: AdminPageComponent },
   { path: 'settings', component: SettingPageComponent},
@@ -46,7 +48,9 @@ let routes: Routes = [
     BoardPageComponent,
     AdminPageComponent,
     SettingPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    AddTeamComponent,
+    FileUploadComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

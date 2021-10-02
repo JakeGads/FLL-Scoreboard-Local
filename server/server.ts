@@ -41,30 +41,51 @@ app.get('/getTeams', (req: any, res: any) => {
 });
 
 app.put('/saveTeams', (req: any, res: any) => {
-    // EXPECT INPUT, JSON ARRAY OF TEAM
-    fs.writeFile(teamFile, req.query['teams'], (err: any) => {
+    let write = req.body['body'].replaceAll("\"", '').replaceAll("\'", "\"").replaceAll("},", "},\n\t").replaceAll("}]", "}\n]").replaceAll("[{", "[\n\t{");
+    fs.writeFile(teamFile, write, (err: any) => {
         if(err){
             console.log(err);
             res.sendStatus(400);
             return;
         }
-    })
-    res.sendStatus(200)
+    });
+    console.log('success')
+    res.sendStatus(200);
 });
 
 const upload = multer({ dest: 'tmp/csv/' });
-app.use('/add-teams', upload.single('file'), (req:any, res:any) => {
-    const fileRows: string[] = [];
-    // open uploaded file
-    csv.fromPath(req.file.path)
-      .on("data", function (data: any) {
-        fileRows.push(data); 
-      })
-      .on("end", function () {
-        console.log(fileRows)
-        fs.unlinkSync(req.file.path);   
-        //process "fileRows" and respond
-      })
+app.use('/addTeams', upload.single('file'), (req:any, res:any) => {
+    
+    let json_read = fs.readFile(req.file.path, 'utf8', (err:any, data:any) => {
+        let json_read = '['
+        let rows = data.replaceAll('\r', '').split('\n') 
+        rows.forEach((row: string) => {
+            let team = row.split(',')
+            if(isNaN(Number(team[0]))){
+                json_read += `{"name":"${team[1]}","num":${team[0]}}`
+            } else {
+                json_read += `{"name":"${team[1]}","num":${team[0]}}`
+            }
+       });
+       json_read += ']';
+       return json_read;
+    });
+
+    let all: any;
+
+    fs.readFile(teamFile, 'utf8', (err: any, data: any) => {
+        all = JSON.parse(data);
+    });
+    
+    console.log(`json ${json_read}`);
+    console.log(`all ${all}`);
+
+    // fs.writeFile(teamFile, JSON.stringify(all), (err: any) => {
+    //     if(err){
+    //         console.error(err);
+    //     }
+    // });
+
 });
 
 app.get('/addTeam', (req: any, res: any) => {
@@ -89,16 +110,15 @@ app.get('/addTeam', (req: any, res: any) => {
     }); 
 });
 
-app.put('/clearTeams', (req:any, res: any) => {
-    console.log('removing the data');
-    fs.writeFile(teamFile, '', (err:any) => {
+app.get('/clearTeams', (req: any, res: any) => {
+    fs.writeFile(teamFile, '', (err: any) => {
         if(err){
-            console.log("I literally don't know how you did this")
+            console.log(err);
+            res.sendStatus(400);
+            return;
         }
     });
-    res.sendStatus(200);
 })
-
 
 app.listen(4201, '127.0.0.1', function() {
     console.log('API serving on 4201')

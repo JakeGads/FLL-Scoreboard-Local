@@ -4,6 +4,5 @@
 <span *ngIf="settings.Average_Top == 0">Will take the average of all scores</span>
 <span *ngIf="settings.Average_Top == 1">Will take the top score</span>
 <br>
-<button (click)="clearTeamsAPI()")>Clear Teams</button>
-<br><br>
-<button (click)="addTeamsAPI()">Add teams</button>
+<button (click)="changeClearStage()">{{clearText[clearStage]}}</button>
+<br><br><br><br>
