@@ -55,17 +55,37 @@ app.put('/saveTeams', (req: any, res: any) => {
 
 const upload = multer({ dest: 'tmp/csv/' });
 app.use('/addTeams', upload.single('file'), (req:any, res:any) => {
-    const fileRows: string[] = [];
-    // open uploaded file
-    csv.fromPath(req.file.path)
-      .on("data", function (data: any) {
-        fileRows.push(data); 
-      })
-      .on("end", function () {
-        console.log(fileRows)
-        fs.unlinkSync(req.file.path);   
-        //process "fileRows" and respond
-      })
+    
+    let json_read = fs.readFile(req.file.path, 'utf8', (err:any, data:any) => {
+        let json_read = '['
+        let rows = data.replaceAll('\r', '').split('\n') 
+        rows.forEach((row: string) => {
+            let team = row.split(',')
+            if(isNaN(Number(team[0]))){
+                json_read += `{"name":"${team[1]}","num":${team[0]}}`
+            } else {
+                json_read += `{"name":"${team[1]}","num":${team[0]}}`
+            }
+       });
+       json_read += ']';
+       return json_read;
+    });
+
+    let all: any;
+
+    fs.readFile(teamFile, 'utf8', (err: any, data: any) => {
+        all = JSON.parse(data);
+    });
+    
+    console.log(`json ${json_read}`);
+    console.log(`all ${all}`);
+
+    // fs.writeFile(teamFile, JSON.stringify(all), (err: any) => {
+    //     if(err){
+    //         console.error(err);
+    //     }
+    // });
+
 });
 
 app.get('/addTeam', (req: any, res: any) => {
