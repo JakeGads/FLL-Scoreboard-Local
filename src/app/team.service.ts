@@ -8,10 +8,9 @@ import { api_direction } from './urls';
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService{
-  // TODO make this a service maybe, probably most likely
-  
+export class TeamService{  
   teams: Team[] = [];
+  subTeam: Team[] = [];
   source: BehaviorSubject<Team[]> = new BehaviorSubject(this.teams);
   current:Observable<Team[]> = this.source.asObservable();;
 
@@ -107,5 +106,17 @@ export class TeamService{
             console.error('There was an error!', error);
         }
     });
+  }
+
+  getSubSet(current: number, offset: number): Team[]{
+    try{
+        return this.teams.splice(current, offset);
+    } catch(err: any){
+        return this.teams.splice(current, this.teams.length);
+    }
+  }
+
+  getSize(): number {
+    return this.teams.length;
   }
 }

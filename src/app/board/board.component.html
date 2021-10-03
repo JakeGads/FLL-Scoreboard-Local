@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let i of teams; let h = index;">
-          <td>{{h + 1}}</td>
+          <td>{{h + 1 + offset}}</td>
           <td>{{i.num}}</td>
           <td>{{i.name.substring(0,25)}}</td>
           <td>{{i.scores.toString().replace('[', '').replace(']','')}}</td>
