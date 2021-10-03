@@ -18,8 +18,8 @@ export class TeamService{
     this.getTeams()
   }
 
-  getTeams(){
-    this.http.get(api_direction + 'getTeams').subscribe(data => {
+  async getTeams(){
+    await this.http.get(api_direction + 'getTeams').subscribe(data => {
         let x : any = data;
         x.forEach((element:any) => {
             if(!element['scores'])
@@ -116,7 +116,8 @@ export class TeamService{
     }
   }
 
-  getSize(): number {
+  async getSize() {
+    await this.getTeams()
     return this.teams.length;
   }
 }
