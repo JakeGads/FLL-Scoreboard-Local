@@ -42,7 +42,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     } else{
       this.offset = 0;
       if(this.teamService.getSize() == 0){
-        this.sleep(5 * 1000);
+        this.sleep(100);
       }
       this.updateSubset();
     }
