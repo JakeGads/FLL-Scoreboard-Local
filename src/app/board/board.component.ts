@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.settingSub = this.SettingsService.current.subscribe(message => this.settings = message);
     this.teamsSub = this.teamService.current.subscribe(message => this.teams = message)
-    this.subsetSub = interval(this.settings.Board_Cycle_Time).subscribe(() => {this.updateSubset()})
+    this.subsetSub = interval(this.settings.Board_Cycle_Time * 1000).subscribe(() => {this.updateSubset()})
   }
   
   ngOnDestroy(): void {

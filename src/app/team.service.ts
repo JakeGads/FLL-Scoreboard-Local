@@ -19,7 +19,7 @@ export class TeamService{
   }
 
   async getTeams(){
-    await this.http.get(api_direction + 'getTeams').subscribe(data => {
+    this.http.get(api_direction + 'getTeams').subscribe(data => {
         let x : any = data;
         x.forEach((element:any) => {
             if(!element['scores'])
