@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.settingSub = this.SettingsService.current.subscribe(message => this.settings = message);
     this.teamsSub = this.teamService.current.subscribe(message => this.teams = message)
-    this.updateSubset()
+    this.subsetSub = interval(5 * 1000).subscribe(() => {this.updateSubset()})
   }
   
   ngOnDestroy(): void {
@@ -37,14 +37,21 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   updateSubset(){
     if(this.teamService.getSize() > this.offset){
-      this.subTeams = this.teamService.getSubSet(this.offset, this.offset + this.settings.Teams_To_Display)
+      this.subTeams = this.teamService.getSubSet(this.offset, this.settings.Teams_To_Display)
       this.offset += this.settings.Teams_To_Display;
     } else{
       this.offset = 0;
-      console.log(this.teamService.getSize())
+      if(this.teamService.getSize() == 0){
+        this.sleep(5 * 1000);
+      }
       this.updateSubset();
     }
   }
 
+  private sleep(ms: number) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 }
 

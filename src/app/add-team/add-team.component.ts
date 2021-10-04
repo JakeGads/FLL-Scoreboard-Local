@@ -35,7 +35,6 @@ export class AddTeamComponent implements OnInit {
         this.dataEntry.value['scores'].split(',').forEach((element:string) => {
           parsedArray.push(parseInt(element));         
         });
-        console.log(parsedArray)
         this.teamService.addTeam(
           new Team(
             this.dataEntry.value['teamName'],

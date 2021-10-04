@@ -26,7 +26,6 @@ export class FileUploadComponent implements OnInit {
 
   // OnClick of button Upload
   onUpload() {
-    console.log(this.file);
     this.fileUploadService.upload(this.file).subscribe(
       (event: any) => {
         if (typeof (event) === 'object') {

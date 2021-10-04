@@ -49,7 +49,6 @@ export class TeamService{
   private sortTeams() {
       this.teams = this.teams.sort(
           function(a: Team, b: Team){
-              console.log(`checking ${a.num} & ${b.num}`)
               if(a.avg == b.avg){
                   if(a.orderedScores[0] == b.orderedScores[0]){
                       return b.num - a.num
@@ -98,21 +97,15 @@ export class TeamService{
         x.push(`{'name':'${element.name}','num':${element.num},'scores':[${element.scores}]}`)
     });
     
-    this.http.put(api_direction +'saveTeams', {body: JSON.stringify(x)}).subscribe({
-        next: data => {
-            console.log(data);
-        },
-        error: error => {
-            console.error('There was an error!', error);
-        }
-    });
+    this.http.put(api_direction +'saveTeams', {body: JSON.stringify(x)}).subscribe();
   }
 
   getSubSet(current: number, offset: number): Team[]{
+    let deepCopy = [...this.teams]
     try{
-        return this.teams.splice(current, offset);
+        return deepCopy.splice(current, offset);
     } catch(err: any){
-        return this.teams.splice(current, this.teams.length);
+        return deepCopy.splice(current, this.teams.length - offset);
     }
   }
 
