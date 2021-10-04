@@ -45,3 +45,20 @@ Attach a .csv file with lists of numbers and names of the teams competing
 #### Manual Team adding
 
 Allows you to add Teams during the run time of the application. 
+
+
+### Board && Admin Page
+
+The admin page allows you to add scores to the dataset while also seeing the timer and the scoreboard
+
+#### Data Entry
+
+When adding scores to the team there will first be a check to see if the team exists in the data set by checking their team number, if the team doesn't exist you must first add them in the manual team adding section 
+
+#### Board
+
+The board runs by itself and you do not have to worry about editing it in any way it should be stated that in the case of a tie the board will choose the winner based on whoever has the largest score and if that is also a draw whomever has the largest team number
+
+#### Timer
+
+The timer gets its time from the setting in the settings page, it does do an exact count so that means that for the first second there is a slight a hang up in the display but it does measure the exact time that has been given to it
