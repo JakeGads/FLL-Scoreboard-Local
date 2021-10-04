@@ -22,7 +22,7 @@
 
 .fl-table td {
     border-right: 1px solid #f8f8f8;
-    font-size: 12px;
+    font-size: 26px;
 }
 
 .fl-table thead th {
@@ -105,3 +105,8 @@
         text-align: center;
     }
 }
+
+th {
+    font-size: 24px;
+}
+
