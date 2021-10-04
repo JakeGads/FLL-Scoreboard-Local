@@ -8,6 +8,9 @@ const csv = require('fast-csv');
 const app = express();
 
 const teamFile = 'server/Teams.json'
+const port = 4201
+
+
 app.use(
     (req: any, res: any, next: any) => {
         res.header('Access-Control-Allow-Origin', '*');
@@ -149,6 +152,6 @@ app.get('/clearTeams', (req: any, res: any) => {
     });
 })
 
-app.listen(4201, '127.0.0.1', function() {
+app.listen(port, '127.0.0.1', function() {
     console.log('API serving on 4201')
 });
