@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   subTeams:Team[] = [];
   private teamsSub!: Subscription;
 
-  settings!: { Match_Timer: string; Average_Top: number; };
+  settings!: { Match_Timer: string; Average_Top: number; Teams_To_Display: number;};
   private settingSub!: Subscription;
 
   private subsetSub!: Subscription;
@@ -36,14 +36,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   updateSubset(){
-    console.log(this.teamService.getSize())
-    // if(this.teamService.getSize() < this.offset){
-    //   this.subTeams = this.teamService.getSubSet(this.offset, this.offset + 5)
-    //   this.offset += 5;
-    // } else{
-    //   this.offset = 0;
-    //   this.updateSubset();
-    // }
+    if(this.teamService.getSize() > this.offset){
+      this.subTeams = this.teamService.getSubSet(this.offset, this.offset + this.settings.Teams_To_Display)
+      this.offset += this.settings.Teams_To_Display;
+    } else{
+      this.offset = 0;
+      console.log(this.teamService.getSize())
+      this.updateSubset();
+    }
   }
 
 }

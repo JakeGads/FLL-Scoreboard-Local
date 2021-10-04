@@ -116,8 +116,7 @@ export class TeamService{
     }
   }
 
-  async getSize() {
-    await this.getTeams()
+  getSize() {
     return this.teams.length;
   }
 }
