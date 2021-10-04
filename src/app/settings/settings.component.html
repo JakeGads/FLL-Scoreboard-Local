@@ -7,6 +7,8 @@
 <br *ngIf="settings.Average_Top == 0 || settings.Average_Top == 1">
 <button (click)="changeTeam_Display()">Teams shown in scoreboard at once: {{settings.Teams_To_Display}}</button>
 <br><br>
+<button (click)="changeTeam_Display_Cycle()">Seconds between board Cycles: {{settings.Board_Cycle_Time}}</button>"
+<br><br>
 
 <button (click)="changeClearStage()">{{clearText[clearStage]}}</button>
 <br><br><br><br>

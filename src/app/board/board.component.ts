@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   subTeams:Team[] = [];
   private teamsSub!: Subscription;
 
-  settings!: { Match_Timer: string; Average_Top: number; Teams_To_Display: number;};
+  settings!: { Match_Timer: string; Average_Top: number; Teams_To_Display: number; Board_Cycle_Time: number;};
   private settingSub!: Subscription;
 
   private subsetSub!: Subscription;
@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.settingSub = this.SettingsService.current.subscribe(message => this.settings = message);
     this.teamsSub = this.teamService.current.subscribe(message => this.teams = message)
-    this.subsetSub = interval(5 * 1000).subscribe(() => {this.updateSubset()})
+    this.subsetSub = interval(this.settings.Board_Cycle_Time).subscribe(() => {this.updateSubset()})
   }
   
   ngOnDestroy(): void {

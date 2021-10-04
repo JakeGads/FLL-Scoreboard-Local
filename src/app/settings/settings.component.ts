@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   clearText = ['clear teams', 'this cannot be undone are you sure']
 
   settingSub!: Subscription;
-  settings!: { Match_Timer: string; Average_Top: number; Teams_To_Display: number;};
+  settings!: { Match_Timer: string; Average_Top: number; Teams_To_Display: number; Board_Cycle_Time: number};
 
   constructor(private data: SettingsService, private teamService: TeamService) { }
 
@@ -38,6 +38,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   changeTeam_Display(){
     this.data.changeTeams();
+  }
+
+  changeTeam_Display_Cycle(){
+    this.data.changeTeamCycle();
   }
 
   changeClearStage(){
