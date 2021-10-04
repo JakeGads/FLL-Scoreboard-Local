@@ -4,5 +4,9 @@
 <span *ngIf="settings.Average_Top == 0">Will take the average of all scores</span>
 <span *ngIf="settings.Average_Top == 1">Will take the top score</span>
 <br>
+<br *ngIf="settings.Average_Top == 0 || settings.Average_Top == 1">
+<button (click)="changeTeam_Display()">Teams shown in scoreboard at once: {{settings.Teams_To_Display}}</button>
+<br><br>
+
 <button (click)="changeClearStage()">{{clearText[clearStage]}}</button>
 <br><br><br><br>

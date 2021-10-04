@@ -3,7 +3,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 
 let Match_Timer_Options = ['02:30', '05:00', '10:00', '25:00', '60:00']
 let Average_Options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
+let Team_Options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ let Average_Options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 export class SettingsService {
   settings = {
     'Match_Timer': '02:30',
-    'Average_Top': 3
+    'Average_Top': 3,
+    'Teams_To_Display': 5
   };
   private messageSource = new BehaviorSubject(this.settings);
   current = this.messageSource.asObservable();
@@ -22,6 +23,10 @@ export class SettingsService {
 
   public changeTop(){
     this.settings.Average_Top = Average_Options[((Average_Options.indexOf(this.settings.Average_Top) + 1) % Average_Options.length)]
+  }
+
+  public changeTeams(){
+    this.settings.Teams_To_Display = Team_Options[((Team_Options.indexOf(this.settings.Teams_To_Display) + 1) % Team_Options.length)]
   }
 
   constructor() { }
