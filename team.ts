@@ -2,6 +2,8 @@ export class Team{
     public orderedScores: number[] = [];
     public avg: number = 0;
     public scores: number[];
+    public displayScores: string = '';
+    public displayAverage: string = '';
 
     constructor(public name: string, public num: number, scores?: number[]){
         if(scores){
@@ -22,6 +24,15 @@ export class Team{
             this.orderedScores = [];
             this.avg = 0
         }
+        this.genDisplays();
+    }
+
+    private genDisplays(){
+        this.displayScores = [...this.scores].toString();
+        if(this.displayScores.length > 10){
+            this.displayScores = this.displayScores.slice(0, 10) + '...';
+        }
+        this.displayAverage = Math.floor(this.avg).toString();
     }
 
     genAverage(top: number): void{
