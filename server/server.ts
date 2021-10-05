@@ -147,7 +147,30 @@ app.get('/clearTeams', (req: any, res: any) => {
         if(err){
             console.log(err);
             res.sendStatus(400);
-            return;
+        }
+    });
+});
+
+app.get('/dummyData', (req: any, res: any) => {
+    fs.readFile(teamFile, 'utf8', (err: any, data: any) => {
+        if(err){
+            console.error(err);
+        } else {
+            let teams = JSON.parse(data);
+            teams.map((team: any) => {
+                team.scores = [];
+                for(let i = 0; i <= 6; i++){
+                    team.scores.push(
+                        Math.round(Math.random() * (1100 - 101) + 101)
+                        )
+                }
+            });
+            fs.writeFile(teamFile, JSON.stringify(teams), (error: any) => {
+                if(error){
+                    console.log(error);
+                }
+            });
+            res.send(JSON.stringify(teams));
         }
     });
 })
