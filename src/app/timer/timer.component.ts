@@ -61,7 +61,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.targetTime += parseInt(this.settings.Match_Timer.split(':')[1]) * 1000; // add seconds
     this.targetTime += Date.now()
     
-    this.loop_object = setInterval(this.loop, 1 * 1000, this)
+    this.loop_object = setInterval(this.loop, .2 * 1000, this)
   }
 
   end(){
